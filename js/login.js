@@ -53,3 +53,9 @@ async function autenticar(e) {
     areaMensagem.innerHTML = error;
   }
 }
+// No lugar de 
+areaMensagem.style = "color:green";
+areaMensagem.innerHTML = "Usuário Autenticado com Sucesso! <br> Token: " + data.token;
+
+// Coloque 
+window.location.href = 'home.html';

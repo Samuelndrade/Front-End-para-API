@@ -21,3 +21,4 @@ import { verificarAutenticacao } from './autorizar.js';
     conteudo.style.display = 'block';
   } 
 })();
+
