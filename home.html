@@ -17,6 +17,8 @@
   <div id="loading-overlay">Carregando...</div>
   <div id="conteudo-protegido">
     <h1>Área Restrita</h1>
+    
+    <a href="inserir-usuario.html">Inserir Usuário</a>
   </div>
 </body>
 
@@ -26,3 +28,78 @@
 <head>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<div id="resposta-usuarios">
+    <h2>Lista de Usuários</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Senha</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-usuarios">
+        <!-- Os dados serão inseridos aqui -->
+      </tbody>
+    </table>
+  </div>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Usuário</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Usuário</h1>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <td id="nome"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td id="email"></td>
+            </tr>
+            <tr>
+                <th>Telefone</th>
+                <td id="telefone"></td>
+            </tr>
+        </table>
+        <button onclick="voltar()">Voltar</button>
+    </div>
+
+    <script>
+        function obterParametrosURL() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                nome: params.get("nome"),
+                email: params.get("email"),
+                telefone: params.get("telefone")
+            };
+        }
+
+        function preencherDadosUsuario() {
+            const usuario = obterParametrosURL();
+            document.getElementById("nome").innerText = usuario.nome || "N/A";
+            document.getElementById("email").innerText = usuario.email || "N/A";
+            document.getElementById("telefone").innerText = usuario.telefone || "N/A";
+        }
+
+        function voltar() {
+            window.history.back();
+        }
+
+        document.addEventListener("DOMContentLoaded", preencherDadosUsuario);
+    </script>
+</body>
+</html>
+
+  
+  
+  
+  
