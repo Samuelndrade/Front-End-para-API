@@ -53,21 +53,3 @@ async function autenticar(e) {
     areaMensagem.innerHTML = error;
   }
 }
-document.addEventListener("DOMContentLoaded", function () {
-  const loginForm = document.getElementById("loginForm");
-
-  loginForm.addEventListener("submit", function (event) {
-      event.preventDefault(); // Impede o envio do formulário padrão
-
-      const email = document.getElementById("email").value;
-      const senha = document.getElementById("senha").value;
-
-      if (email === "admin@example.com" && senha === "123456") {
-          alert("Login bem-sucedido!");
-          // Redirecionar para outra página, se necessário
-          // window.location.href = "dashboard.html";
-      } else {
-          alert("Email ou senha incorretos.");
-      }
-  });
-});
