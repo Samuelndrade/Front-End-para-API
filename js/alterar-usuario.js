@@ -1,82 +1,67 @@
-import { verificarAutenticacao } from './autorizar.js';
+const urlBase = "URL_DO_SEU_BACK_END"; // Substituir pela URL real do backend
+const tabelaCorpo = document.getElementById("tabela-usuarios");
 
-(async () => {
-  const autenticado = await verificarAutenticacao();
-  const overlay = document.getElementById('loading-overlay');
-  const conteudo = document.getElementById('conteudo-protegido');
+tabelaCorpo.innerHTML = '<tr><td colspan="5">Aguarde...</td></tr>';
 
-  if (autenticado) {
-    overlay.remove(); // Remove o overlay
-    conteudo.style.display = 'block'; // Mostra o conteúdo
-  }
-})();
+async function carregarUsuarios() {
+    try {
+        const response = await fetch(`${urlBase}/usuario`);
+        
+        if (!response.ok) {
+            throw new Error("Erro na requisição: " + response.status);
+        }
 
-const botaoSalvar = document.getElementById('submit');
-botaoSalvar.addEventListener('click', alterarUsuario);
-
-const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
-
-const url = `URL_DO_SEU_BACK_END/usuario/${id}`;
-const token = localStorage.getItem('jwt');
-
-try {
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-access-token': token
+        const data = await response.json();
+        tabelaCorpo.innerHTML = '';
+        
+        data.forEach(usuario => {
+            const linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td>${usuario.id}</td>
+                <td>${usuario.nome}</td>
+                <td>${usuario.email}</td>
+                <td>${usuario.senha}</td>
+                <td class="acoes">
+                    <a class="botaoVer" href="usuario.html?id=${usuario.id}">Ver</a> |
+                    <a class="botaoAlterar" href="alterar-usuario.html?id=${usuario.id}">Alterar</a> |
+                    <a class="botaoExcluir" href="#" data-id="${usuario.id}">Excluir</a>
+                </td>
+            `;
+            tabelaCorpo.appendChild(linha);
+        });
+    } catch (error) {
+        console.error("Erro ao carregar usuários:", error);
+        tabelaCorpo.innerHTML = '<tr><td colspan="5">Erro ao carregar dados</td></tr>';
     }
-  });
-
-  if (!response.ok) {
-    throw new Error("Erro na requisição: " + response.status);
-  }
-  const data = await response.json();
-
-  console.log(data[0].nome);
-
-  document.getElementById('nome').value = data[0].nome;
-  document.getElementById('email').value = data[0].email;
-  document.getElementById('senha').value = data[0].senha;
-
-} catch (error) {
-  console.error("Erro:", error);
-  alert("Usuário não encontrado!");
-  window.location.href = 'home.html';
 }
 
-async function alterarUsuario(e) {
-  e.preventDefault();
-  try {
-    const dados = {
-      nome: document.getElementById('nome').value,
-      email: document.getElementById('email').value,
-      senha: document.getElementById('senha').value
-    };
-
-    const response = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token
-      },
-      body: JSON.stringify(dados)
-    });
-
-    if (!response.ok) {
-      throw new Error("Erro na requisição: " + response.status);
+tabelaCorpo.addEventListener('click', async function(e) {
+    if (e.target.classList.contains("botaoExcluir")) {
+        e.preventDefault();
+        const id = e.target.getAttribute("data-id");
+        if (confirm("Tem certeza que deseja excluir este usuário?")) {
+            await excluirUsuario(id);
+        }
     }
+});
 
-    const data = await response.json();
-
-    console.log(data);
-
-    alert("Usuário alterado com sucesso!");
-    window.location.href = 'home.html';
-
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("Usuário não alterado!");
-  }
+async function excluirUsuario(id) {
+    try {
+        const endpoint = `/usuario/${id}`;
+        const urlFinal = urlBase + endpoint;
+        const response = await fetch(urlFinal, { method: 'DELETE' });
+        
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`);
+        }
+        
+        alert('Usuário excluído com sucesso!');
+        carregarUsuarios(); // Atualiza a lista após exclusão
+    } catch (error) {
+        console.error(error);
+        alert('Erro ao excluir usuário!');
+    }
 }
+
+// Chama a função ao carregar a página
+carregarUsuarios();

@@ -1,105 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-
-  <style>
-    #conteudo-protegido {
-      display: none;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="loading-overlay">Carregando...</div>
-  <div id="conteudo-protegido">
-    <h1>Área Restrita</h1>
-    
-    <a href="inserir-usuario.html">Inserir Usuário</a>
-  </div>
-</body>
-
-<script type="module" src="js/home.js"></script>
-
-</html>
-<head>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<div id="resposta-usuarios">
-    <h2>Lista de Usuários</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Senha</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="tabela-usuarios">
-        <!-- Os dados serão inseridos aqui -->
-      </tbody>
-    </table>
-  </div>
-  <!DOCTYPE html>
-<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações do Usuário</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .acoes a { margin-right: 10px; text-decoration: none; color: blue; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Detalhes do Usuário</h1>
+    <h1>Área Restrita</h1>
+    <a href="inserir-usuario.html">Inserir Usuário</a>
+    <div id="resposta-usuarios">
+        <h2>Lista de Usuários</h2>
         <table>
-            <tr>
-                <th>Nome</th>
-                <td id="nome"></td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td id="email"></td>
-            </tr>
-            <tr>
-                <th>Telefone</th>
-                <td id="telefone"></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-usuarios">
+                <!-- Os dados serão inseridos aqui -->
+            </tbody>
         </table>
-        <button onclick="voltar()">Voltar</button>
     </div>
-
-    <script>
-        function obterParametrosURL() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                nome: params.get("nome"),
-                email: params.get("email"),
-                telefone: params.get("telefone")
-            };
-        }
-
-        function preencherDadosUsuario() {
-            const usuario = obterParametrosURL();
-            document.getElementById("nome").innerText = usuario.nome || "N/A";
-            document.getElementById("email").innerText = usuario.email || "N/A";
-            document.getElementById("telefone").innerText = usuario.telefone || "N/A";
-        }
-
-        function voltar() {
-            window.history.back();
-        }
-
-        document.addEventListener("DOMContentLoaded", preencherDadosUsuario);
-    </script>
+    <script src="js/home.js"></script>
 </body>
 </html>
-
-  
-  
-  
-  

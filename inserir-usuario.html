@@ -1,27 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-
-  <style>
-    #conteudo-protegido {
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir Usuário</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+    </style>
 </head>
-
 <body>
-  <div id="loading-overlay">Carregando...</div>
-  <div id="conteudo-protegido">
-    <h1>Área Restrita</h1>
-    <h2>Ver Usuário</h2>
-    <a href="home.html">Início</a>
-    <br><br>
-    <div id="info-usuario">
-      <form method="post">
+    <h1>Inserir Usuário</h1>
+    <a href="home.html">Voltar</a>
+    <form id="form-usuario">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
         <br>
@@ -31,12 +21,8 @@
         <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required>
         <br>
-        <button id="submit" type="submit">Salvar</button>
-      </form>
-    </div>
-  </div>
+        <button type="submit">Salvar</button>
+    </form>
+    <script src="js/inserir-usuario.js"></script>
 </body>
-
-<script type="module" src="js/inserir-usuario.js"></script>
-
 </html>
